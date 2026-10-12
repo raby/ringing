@@ -5,12 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning: [S
 
 ## [0.1.0] - 2026-10-12
 
-First release — a complete GOV.UK transactional service ("apply for a bird ringing licence") built to
+First release: a complete GOV.UK transactional service ("apply for a bird ringing licence") built to
 the GDS way with [GOV.UK Frontend](https://www.npmjs.com/package/govuk-frontend) 6, Express 5 and
 Nunjucks, in TypeScript.
 
 ### Added
-- A one-thing-per-page journey — name, species, reserve, start date — then check-your-answers and a
+- A one-thing-per-page journey (name, species, reserve, start date), then check-your-answers and a
   confirmation panel with a reference number.
 - **Progressive enhancement**: the whole journey is server-rendered post/redirect/get forms that work
   with JavaScript disabled; JavaScript only enhances. An e2e test drives the journey with JS off.

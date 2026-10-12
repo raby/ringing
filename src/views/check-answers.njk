@@ -1,0 +1,35 @@
+{% extends "layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block backLink %}{{ govukBackLink({ text: "Back", href: "/start-date" }) }}{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+
+    {% set rows = [] %}
+    {% for a in answers %}
+      {% set rows = (rows.push({
+        key: { text: a.key },
+        value: { text: a.value },
+        actions: { items: [ { href: a.changeHref, text: "Change", visuallyHiddenText: a.changeHidden } ] }
+      }), rows) %}
+    {% endfor %}
+
+    {{ govukSummaryList({ rows: rows }) }}
+
+    <h2 class="govuk-heading-m">Now send your application</h2>
+    <p class="govuk-body">
+      By submitting this application you confirm that, to the best of your knowledge, the details you
+      are providing are correct.
+    </p>
+
+    <form method="post">
+      {{ govukButton({ text: "Accept and send" }) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Apply for a bird ringing licence</h1>
+
+    <p class="govuk-body">
+      Use this service to apply for a licence to ring a protected bird species at a nature reserve.
+    </p>
+
+    <p class="govuk-body">Applying takes around 5 minutes.</p>
+
+    {{ govukButton({
+      text: "Start now",
+      href: "/applicant-name",
+      isStartButton: true
+    }) }}
+
+    <h2 class="govuk-heading-m">Before you start</h2>
+    <p class="govuk-body">You need to know:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>which species you intend to ring</li>
+      <li>the reserve where you will be working</li>
+      <li>when you plan to start</li>
+    </ul>
+
+    {{ govukInsetText({
+      text: "This is a demonstration built to show the GOV.UK Design System. It does not submit a real application or issue a real licence."
+    }) }}
+  </div>
+</div>
+{% endblock %}

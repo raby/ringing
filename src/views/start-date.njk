@@ -1,0 +1,50 @@
+{% extends "layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block backLink %}{{ govukBackLink({ text: "Back", href: backPath }) }}{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if errors %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errors | errorSummary }) }}
+    {% endif %}
+
+    <form method="post" novalidate>
+      {{ govukDateInput({
+        id: "start-date",
+        namePrefix: "start-date",
+        fieldset: { legend: { text: title, isPageHeading: true, classes: "govuk-fieldset__legend--l" } },
+        hint: { text: "For example, 27 3 2027" },
+        errorMessage: { text: errorMap["start-date"] } if errorMap["start-date"],
+        items: [
+          {
+            name: "day",
+            classes: "govuk-input--width-2" + (" govuk-input--error" if erroredParts.day else ""),
+            value: day,
+            inputmode: "numeric"
+          },
+          {
+            name: "month",
+            classes: "govuk-input--width-2" + (" govuk-input--error" if erroredParts.month else ""),
+            value: month,
+            inputmode: "numeric"
+          },
+          {
+            name: "year",
+            classes: "govuk-input--width-4" + (" govuk-input--error" if erroredParts.year else ""),
+            value: year,
+            inputmode: "numeric"
+          }
+        ]
+      }) }}
+
+      <input type="hidden" name="returnTo" value="{{ returnTo }}">
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{
+  "name": "ringing",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A GOV.UK transactional service, built to the GDS way — one-thing-per-page, server-rendered, progressive enhancement, WCAG 2.1 AA.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
+  },
+  "keywords": [
+    "govuk",
+    "gov.uk",
+    "gds",
+    "govuk-frontend",
+    "design-system",
+    "accessibility",
+    "wcag",
+    "progressive-enhancement",
+    "nunjucks",
+    "express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raby/ringing.git"
+  },
+  "homepage": "https://github.com/raby/ringing#readme",
+  "bugs": "https://github.com/raby/ringing/issues",
+  "license": "MIT",
+  "author": "Raby Whyte",
+  "dependencies": {
+    "express": "^5.3.0",
+    "express-session": "^1.19.0",
+    "govuk-frontend": "^6.5.1",
+    "nunjucks": "^3.2.4"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.0",
+    "@types/express": "^5.0.6",
+    "@types/express-session": "^1.19.0",
+    "@types/node": "^26.6.5",
+    "@types/nunjucks": "^3.2.6",
+    "eslint": "^10.12.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.4"
+  }
+}

@@ -1,0 +1,59 @@
+{% extends "layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block backLink %}{{ govukBackLink({ text: "Back", href: backPath }) }}{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if errors %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errors | errorSummary }) }}
+    {% endif %}
+
+    {# The "other" radio reveals a free-text field. The reveal is CSS-driven: with JavaScript off the
+       body has no `js-enabled` class, so the field is simply always visible — progressive enhancement. #}
+    {% set otherHtml %}
+      {{ govukInput({
+        id: "other-species",
+        name: "other-species",
+        value: otherValue,
+        label: { text: "Enter the species name" },
+        errorMessage: { text: errorMap["other-species"] } if errorMap["other-species"]
+      }) }}
+    {% endset %}
+
+    {% set items = [] %}
+    {% for s in species %}
+      {% set items = (items.push({
+        value: s.id,
+        text: s.name,
+        hint: { text: s.scientificName },
+        checked: selected == s.id
+      }), items) %}
+    {% endfor %}
+    {% set items = (items.push({
+      value: otherId,
+      text: "Another species",
+      checked: selected == otherId,
+      conditional: { html: otherHtml }
+    }), items) %}
+
+    <form method="post" novalidate>
+      {{ govukRadios({
+        name: "species",
+        fieldset: { legend: { text: title, isPageHeading: true, classes: "govuk-fieldset__legend--l" } },
+        hint: { text: "Select one option." },
+        errorMessage: { text: errorMap["species"] } if errorMap["species"],
+        items: items
+      }) }}
+
+      <input type="hidden" name="returnTo" value="{{ returnTo }}">
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

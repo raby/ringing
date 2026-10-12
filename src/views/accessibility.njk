@@ -1,0 +1,43 @@
+{% extends "layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block backLink %}{{ govukBackLink({ text: "Back", href: "/" }) }}{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Accessibility statement</h1>
+
+    <p class="govuk-body">
+      This is a portfolio demonstration, not a government service. It is built with the GOV.UK Design
+      System, which is designed to meet
+      <a class="govuk-link" href="https://www.w3.org/TR/WCAG21/">WCAG 2.1</a> level AA.
+    </p>
+
+    <h2 class="govuk-heading-l">How accessible this demo is</h2>
+    <p class="govuk-body">Every page is intended to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>work without JavaScript, as a sequence of server-rendered forms</li>
+      <li>work with CSS switched off, in a logical reading order</li>
+      <li>be navigable with a keyboard alone, with a visible focus state</li>
+      <li>move focus to the error summary when a page is submitted with errors</li>
+      <li>describe each field to a screen reader, including which part of a date is wrong</li>
+    </ul>
+
+    <h2 class="govuk-heading-l">How this is tested</h2>
+    <p class="govuk-body">
+      Every page in the journey is checked automatically against the
+      <a class="govuk-link" href="https://github.com/dequelabs/axe-core">axe</a> accessibility rules in
+      continuous integration, and the journey is exercised end to end with JavaScript both on and off.
+      Automated testing catches a large share of issues but not all of them, so it is no substitute for
+      an audit by disabled users.
+    </p>
+
+    <h2 class="govuk-heading-l">Reporting a problem</h2>
+    <p class="govuk-body">
+      If you find an accessibility problem, please
+      <a class="govuk-link" href="https://github.com/raby/ringing/issues">raise an issue</a>.
+    </p>
+  </div>
+</div>
+{% endblock %}

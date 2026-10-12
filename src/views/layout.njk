@@ -1,0 +1,100 @@
+{% extends "govuk/template.njk" %}
+
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set serviceName = "Apply for a bird ringing licence" %}
+{% set serviceUrl = "/" %}
+{% set assetPath = "/assets" %}
+
+{#
+  The GOV.UK crown and logotype are reserved for live services on gov.uk, and the Design System's
+  govukHeader / govukFooter hardcode them (plus the Open Government Licence and Crown copyright). This
+  is a portfolio demonstration, not a government service, so it uses the Design System in full but
+  swaps in a neutral service header and an honest footer — no Crown, no OGL, no Crown copyright. The
+  components, layout, patterns and accessibility below are the real thing.
+#}
+
+{% block pageTitle %}{% if errors %}Error: {% endif %}{% if title %}{{ title }} – {% endif %}{{ serviceName }} – GOV.UK Design System demo{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="/govuk/govuk-frontend.min.css">
+  <style>
+    /* A neutral text wordmark stands in for the GOV.UK logotype — this demo must not wear the Crown
+       or the GOV.UK brand (see the header comment below). It mirrors the logotype's white weight and
+       the Design System's focus state so the one hand-rolled element still behaves like the rest. */
+    .app-wordmark {
+      display: inline-block;
+      padding: 10px 0;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.1875rem;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .app-wordmark:hover { text-decoration: underline; text-decoration-thickness: 3px; }
+    .app-wordmark:focus {
+      color: #0b0c0c;
+      background-color: #fd0;
+      box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+      outline: 3px solid transparent;
+      text-decoration: none;
+    }
+  </style>
+{% endblock %}
+
+{% block header %}
+  <header class="govuk-header" role="banner">
+    <div class="govuk-header__container govuk-width-container">
+      <a href="/" class="app-wordmark">Bird ringing licensing</a>
+    </div>
+  </header>
+  {{ govukServiceNavigation({ serviceName: serviceName, serviceUrl: serviceUrl }) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Prototype" },
+    html: 'This is a portfolio demonstration of the GOV.UK Design System. It is <strong>not a real government service</strong> and no application is submitted. <a class="govuk-link" href="https://github.com/raby/ringing">View the source</a>.'
+  }) }}
+  {% block backLink %}{% endblock %}
+{% endblock %}
+
+{% block footer %}
+  <footer class="govuk-footer" role="contentinfo">
+    <div class="govuk-width-container">
+      <div class="govuk-footer__meta">
+        <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+          <h2 class="govuk-visually-hidden">Support links</h2>
+          <ul class="govuk-footer__inline-list">
+            <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="/accessibility">Accessibility statement</a>
+            </li>
+            <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="https://github.com/raby/ringing">Source code</a>
+            </li>
+            <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="https://design-system.service.gov.uk/">GOV.UK Design System</a>
+            </li>
+          </ul>
+          <span class="govuk-footer__licence-description">
+            Built with the GOV.UK Design System. A portfolio demonstration, not a government service —
+            the Crown copyright and Open Government Licence notices a real service carries are
+            deliberately omitted.
+          </span>
+        </div>
+        <div class="govuk-footer__meta-item">
+          <span class="govuk-footer__licence-description">© Raby Whyte</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script type="module" src="/govuk/govuk-frontend.min.js"></script>
+  <script type="module">
+    import { initAll } from '/govuk/govuk-frontend.min.js'
+    initAll()
+  </script>
+{% endblock %}

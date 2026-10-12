@@ -1,0 +1,32 @@
+{% extends "layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block backLink %}{{ govukBackLink({ text: "Back", href: backPath }) }}{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if errors %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errors | errorSummary }) }}
+    {% endif %}
+
+    <form method="post" novalidate>
+      {{ govukInput({
+        id: "applicant-name",
+        name: "applicant-name",
+        value: value,
+        autocomplete: "name",
+        spellcheck: false,
+        label: { text: title, classes: "govuk-label--l", isPageHeading: true },
+        errorMessage: { text: errorMap["applicant-name"] } if errorMap["applicant-name"]
+      }) }}
+
+      <input type="hidden" name="returnTo" value="{{ returnTo }}">
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

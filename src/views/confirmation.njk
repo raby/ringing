@@ -1,0 +1,22 @@
+{% extends "layout.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukPanel({
+      titleText: "Application submitted",
+      html: "Your reference number<br><strong>" + reference + "</strong>"
+    }) }}
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p class="govuk-body">
+      This is a demonstration, so nothing has been sent and no licence has been issued. In a real
+      service, the licensing team would review the application and contact you within 10 working days.
+    </p>
+    <p class="govuk-body">
+      <a class="govuk-link" href="/">Make another application</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

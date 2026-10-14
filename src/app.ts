@@ -30,8 +30,10 @@ export function createApp(): Express {
   )
   app.set('view engine', 'njk')
 
-  // Fonts, images and the manifest at /assets (the template's default assetPath); the compiled CSS
-  // and JS under /govuk.
+  // Our own neutral favicon first (the Design System's icons are the GOV.UK crown, which this demo
+  // must not wear), then fonts at /assets (the template's default assetPath); the compiled CSS and JS
+  // under /govuk.
+  app.use('/assets', express.static(path.join(import.meta.dirname, 'public')))
   app.use('/assets', express.static(path.join(govukDist, 'govuk', 'assets')))
   app.use('/govuk', express.static(path.join(govukDist, 'govuk')))
 

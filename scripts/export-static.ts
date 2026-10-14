@@ -120,10 +120,12 @@ async function main(): Promise<void> {
     process.stdout.write(`  ${page.name}.html\n`)
   }
 
-  // Copy GOV.UK assets; relink the CSS's absolute /assets/ URLs to ../assets/ (it sits in ./govuk/).
+  // Copy the GOV.UK fonts (not its images or manifest: those are the crown) plus our neutral favicon;
+  // relink the CSS's absolute /assets/ URLs to ../assets/ (it sits in ./govuk/).
   const require = createRequire(import.meta.url)
   const govukDist = path.join(path.dirname(require.resolve('govuk-frontend/package.json')), 'dist', 'govuk')
-  await cp(path.join(govukDist, 'assets'), path.join(outDir, 'assets'), { recursive: true })
+  await cp(path.join(govukDist, 'assets', 'fonts'), path.join(outDir, 'assets', 'fonts'), { recursive: true })
+  await cp(path.join(import.meta.dirname, '..', 'src', 'public', 'app-favicon.svg'), path.join(outDir, 'assets', 'app-favicon.svg'))
   await cp(path.join(govukDist, 'govuk-frontend.min.js'), path.join(outDir, 'govuk', 'govuk-frontend.min.js'))
   const css = await readFile(path.join(govukDist, 'govuk-frontend.min.css'), 'utf8')
   await writeFile(path.join(outDir, 'govuk', 'govuk-frontend.min.css'), css.split('/assets/').join('../assets/'), 'utf8')

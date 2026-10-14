@@ -15,6 +15,14 @@
   components, layout, patterns and accessibility below are the real thing.
 #}
 
+{#
+  The template's default head icons (favicon, mask icon, touch icon, web manifest) are the GOV.UK
+  crown, so they are replaced with a neutral ring: the same rule as the header and footer.
+#}
+{% block headIcons %}
+  <link rel="icon" sizes="any" href="{{ assetPath }}/app-favicon.svg" type="image/svg+xml">
+{% endblock %}
+
 {% block pageTitle %}{% if errors %}Error: {% endif %}{% if title %}{{ title }} – {% endif %}{{ serviceName }} – GOV.UK Design System demo{% endblock %}
 
 {% block head %}
